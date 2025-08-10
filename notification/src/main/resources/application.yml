@@ -1,0 +1,22 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: notification
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dlil.testes.software@gmail.com
+    password: ${EMAIL_SECRET}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  kafka:
+    bootstrap:
+      servers: localhost:29092
