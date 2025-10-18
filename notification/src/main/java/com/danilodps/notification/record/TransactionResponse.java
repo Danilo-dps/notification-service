@@ -7,5 +7,4 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Builder
-public record TransferResponse(UUID transferId, String fullName, String fromEmail, String destinationEmail, BigDecimal amount, LocalDateTime whenDidItHappen) {
-}
+public record TransactionResponse(UUID transactionId, BigDecimal amount, LocalDateTime transactionTimestamp, String userSender, String receiver) { }

@@ -4,7 +4,7 @@ import com.danilodps.notification.config.KafkaConfigNotification;
 import com.danilodps.notification.record.DepositResponse;
 import com.danilodps.notification.record.SigninResponse;
 import com.danilodps.notification.record.SignupResponse;
-import com.danilodps.notification.record.TransferResponse;
+import com.danilodps.notification.record.TransactionResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -38,14 +38,14 @@ public class KafkaNotificationConsumer {
             groupId = "notification-transfer-group",
             containerFactory = "transferResponseConcurrentKafkaListenerContainerFactory"
     )
-    public void handleTransferCreated(TransferResponse transferResponse){
-        if(transferResponse == null){
+    public void handleTransferCreated(TransactionResponse transactionResponse){
+        if(transactionResponse == null){
             log.error(PAYLOAD);
             return;
         }
-        sendEmailNotification(transferResponse.fromEmail(), "Transferência realizada com sucesso", String.format("Olá %s, foi transferido o valor de %.2f",
-                transferResponse.fullName(),
-                transferResponse.amount()));
+        sendEmailNotification(transactionResponse.userSender(), "Transferência realizada com sucesso", String.format("Olá %s, foi transferido o valor de %.2f",
+                transactionResponse.receiver(),
+                transactionResponse.amount()));
     }
 
     @KafkaListener(
