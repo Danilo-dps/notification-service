@@ -3,7 +3,7 @@ package com.danilodps.notification.config;
 import com.danilodps.notification.record.DepositResponse;
 import com.danilodps.notification.record.SigninResponse;
 import com.danilodps.notification.record.SignupResponse;
-import com.danilodps.notification.record.TransferResponse;
+import com.danilodps.notification.record.TransactionResponse;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -67,23 +67,23 @@ public class KafkaConfigNotification {
     }
 
     @Bean
-    ConsumerFactory<String, TransferResponse> transferResponseConsumerFactory(){
+    ConsumerFactory<String, TransactionResponse> transferResponseConsumerFactory(){
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.bootstrap().servers());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "notification-transfer-group");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, TransferResponse.class.getName());
+        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, TransactionResponse.class.getName());
         config.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<String, TransferResponse> transferResponseConcurrentKafkaListenerContainerFactory(
-            ConsumerFactory<String, TransferResponse> transferResponseConsumerFactory){
-        ConcurrentKafkaListenerContainerFactory<String, TransferResponse> factory =
+    ConcurrentKafkaListenerContainerFactory<String, TransactionResponse> transferResponseConcurrentKafkaListenerContainerFactory(
+            ConsumerFactory<String, TransactionResponse> transferResponseConsumerFactory){
+        ConcurrentKafkaListenerContainerFactory<String, TransactionResponse> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(transferResponseConsumerFactory);
 
