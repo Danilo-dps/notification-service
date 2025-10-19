@@ -7,4 +7,4 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Builder
-public record TransactionResponse(UUID transactionId, BigDecimal amount, LocalDateTime transactionTimestamp, String userSender, String receiver) { }
+public record TransactionResponse(UUID transactionId, BigDecimal amount, LocalDateTime transactionTimestamp, String userSenderEmail, String receiverEmail, String userSenderName, String receiverName) { }

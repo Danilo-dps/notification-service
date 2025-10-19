@@ -43,8 +43,8 @@ public class KafkaNotificationConsumer {
             log.error(PAYLOAD);
             return;
         }
-        sendEmailNotification(transactionResponse.userSender(), "Transferência realizada com sucesso", String.format("Olá %s, foi transferido o valor de %.2f",
-                transactionResponse.receiver(),
+        sendEmailNotification(transactionResponse.receiverEmail(), "Transferência realizada com sucesso", String.format("Olá %s, foi transferido o valor de %.2f",
+                transactionResponse.userSenderName(),
                 transactionResponse.amount()));
     }
 
