@@ -3,7 +3,7 @@ package com.danilodps.notification;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.danilodps"})
 public class NotificationApplication {
 
 	public static void main(String[] args) {

@@ -1,10 +1,11 @@
 package com.danilodps.notification.service;
 
+import com.danilodps.domain.model.response.DepositResponse;
+import com.danilodps.domain.model.response.SignInResponse;
+import com.danilodps.domain.model.response.TransactionResponse;
+import com.danilodps.domain.model.response.SignUpResponse;
+
 import com.danilodps.notification.config.KafkaConfigNotification;
-import com.danilodps.notification.record.DepositResponse;
-import com.danilodps.notification.record.SigninResponse;
-import com.danilodps.notification.record.SignupResponse;
-import com.danilodps.notification.record.TransactionResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class KafkaNotificationConsumer {
             groupId = "notification-signup-group",
             containerFactory = "signUpResponseConcurrentKafkaListenerContainerFactory"
     )
-    public void handleSignupCreated(SignupResponse signupResponse){
+    public void handleSignupCreated(SignUpResponse signupResponse){
         if(signupResponse == null){
             log.error(PAYLOAD);
             return;
@@ -68,7 +69,7 @@ public class KafkaNotificationConsumer {
             groupId = "notification-signin-group",
             containerFactory = "signInResponseConcurrentKafkaListenerContainerFactory"
     )
-    public void handleSigninCreated(SigninResponse signinResponse){
+    public void handleSigninCreated(SignInResponse signinResponse){
         if(signinResponse == null){
             log.error(PAYLOAD);
             return;

@@ -1,9 +1,11 @@
 package com.danilodps.notification.config;
 
-import com.danilodps.notification.record.DepositResponse;
-import com.danilodps.notification.record.SigninResponse;
-import com.danilodps.notification.record.SignupResponse;
-import com.danilodps.notification.record.TransactionResponse;
+import com.danilodps.application.config.KafkaProperties;
+
+import com.danilodps.domain.model.response.DepositResponse;
+import com.danilodps.domain.model.response.SignInResponse;
+import com.danilodps.domain.model.response.SignUpResponse;
+import com.danilodps.domain.model.response.TransactionResponse;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -91,23 +93,23 @@ public class KafkaConfigNotification {
     }
 
     @Bean
-    ConsumerFactory<String, SignupResponse> signUpResponseConsumerFactory(){
+    ConsumerFactory<String, SignUpResponse> signUpResponseConsumerFactory(){
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.bootstrap().servers());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "notification-signup-group");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, SignupResponse.class.getName());
+        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, SignUpResponse.class.getName());
         config.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<String, SignupResponse> signUpResponseConcurrentKafkaListenerContainerFactory(
-            ConsumerFactory<String, SignupResponse> signUpResponseConsumerFactory){
-        ConcurrentKafkaListenerContainerFactory<String, SignupResponse> factory =
+    ConcurrentKafkaListenerContainerFactory<String, SignUpResponse> signUpResponseConcurrentKafkaListenerContainerFactory(
+            ConsumerFactory<String, SignUpResponse> signUpResponseConsumerFactory){
+        ConcurrentKafkaListenerContainerFactory<String, SignUpResponse> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(signUpResponseConsumerFactory);
 
@@ -115,23 +117,23 @@ public class KafkaConfigNotification {
     }
 
     @Bean
-    ConsumerFactory<String, SigninResponse> signInResponseConsumerFactory(){
+    ConsumerFactory<String, SignInResponse> signInResponseConsumerFactory(){
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.bootstrap().servers());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "notification-signin-group");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, SigninResponse.class.getName());
+        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, SignInResponse.class.getName());
         config.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<String, SigninResponse> signInResponseConcurrentKafkaListenerContainerFactory(
-            ConsumerFactory<String, SigninResponse> signinResponseConsumerFactory){
-        ConcurrentKafkaListenerContainerFactory<String, SigninResponse> factory =
+    ConcurrentKafkaListenerContainerFactory<String, SignInResponse> signInResponseConcurrentKafkaListenerContainerFactory(
+            ConsumerFactory<String, SignInResponse> signinResponseConsumerFactory){
+        ConcurrentKafkaListenerContainerFactory<String, SignInResponse> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(signinResponseConsumerFactory);
 
