@@ -1,11 +1,10 @@
 package com.danilodps.notification.record;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 import lombok.Builder;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Builder
-public record DepositResponse(UUID depositId, String username, String userEmail, BigDecimal amount, LocalDateTime depositTimestamp) {
+public record DepositResponse(String depositId, String username, String userEmail, BigDecimal amount, LocalDateTime depositTimestamp) {
 }

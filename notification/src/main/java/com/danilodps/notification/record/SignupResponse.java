@@ -1,9 +1,8 @@
 package com.danilodps.notification.record;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 import lombok.Builder;
 
+import java.time.LocalDateTime;
+
 @Builder
-public record SignupResponse(UUID id, String username, String email, LocalDateTime signupTimestamp){}
+public record SignupResponse(String id, String username, String email, LocalDateTime signupTimestamp){}
