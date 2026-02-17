@@ -1,11 +1,10 @@
 package com.danilodps.notification.config;
 
-import com.danilodps.application.config.KafkaProperties;
-
-import com.danilodps.domain.model.response.DepositResponse;
-import com.danilodps.domain.model.response.SignInResponse;
-import com.danilodps.domain.model.response.SignUpResponse;
-import com.danilodps.domain.model.response.TransactionResponse;
+import com.danilodps.commons.application.config.KafkaProperties;
+import com.danilodps.commons.domain.model.response.DepositResponse;
+import com.danilodps.commons.domain.model.response.SignInResponse;
+import com.danilodps.commons.domain.model.response.SignUpResponse;
+import com.danilodps.commons.domain.model.response.TransactionResponse;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -18,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,10 +49,10 @@ public class KafkaConfigNotification {
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.bootstrap().servers());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "notification-deposit-group");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, DepositResponse.class.getName());
-        config.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class);
+        config.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, "*");
+        config.put(JacksonJsonDeserializer.VALUE_DEFAULT_TYPE, DepositResponse.class.getName());
+        config.put(JacksonJsonDeserializer.USE_TYPE_INFO_HEADERS, false);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
@@ -74,10 +73,10 @@ public class KafkaConfigNotification {
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.bootstrap().servers());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "notification-transfer-group");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, TransactionResponse.class.getName());
-        config.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class);
+        config.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, "*");
+        config.put(JacksonJsonDeserializer.VALUE_DEFAULT_TYPE, TransactionResponse.class.getName());
+        config.put(JacksonJsonDeserializer.USE_TYPE_INFO_HEADERS, false);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
@@ -98,10 +97,10 @@ public class KafkaConfigNotification {
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.bootstrap().servers());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "notification-signup-group");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, SignUpResponse.class.getName());
-        config.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class);
+        config.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, "*");
+        config.put(JacksonJsonDeserializer.VALUE_DEFAULT_TYPE, SignUpResponse.class.getName());
+        config.put(JacksonJsonDeserializer.USE_TYPE_INFO_HEADERS, false);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
@@ -122,10 +121,10 @@ public class KafkaConfigNotification {
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.bootstrap().servers());
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "notification-signin-group");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
-        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, SignInResponse.class.getName());
-        config.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class);
+        config.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, "*");
+        config.put(JacksonJsonDeserializer.VALUE_DEFAULT_TYPE, SignInResponse.class.getName());
+        config.put(JacksonJsonDeserializer.USE_TYPE_INFO_HEADERS, false);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }

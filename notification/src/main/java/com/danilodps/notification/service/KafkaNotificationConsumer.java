@@ -1,9 +1,9 @@
 package com.danilodps.notification.service;
 
-import com.danilodps.domain.model.response.DepositResponse;
-import com.danilodps.domain.model.response.SignInResponse;
-import com.danilodps.domain.model.response.TransactionResponse;
-import com.danilodps.domain.model.response.SignUpResponse;
+import com.danilodps.commons.domain.model.response.DepositResponse;
+import com.danilodps.commons.domain.model.response.SignInResponse;
+import com.danilodps.commons.domain.model.response.TransactionResponse;
+import com.danilodps.commons.domain.model.response.SignUpResponse;
 
 import com.danilodps.notification.config.KafkaConfigNotification;
 import lombok.extern.slf4j.Slf4j;
