@@ -29,4 +29,4 @@ spring:
             enable: true
 
 server:
-  port: 8087
+  port: ${SERVER_PORT}
