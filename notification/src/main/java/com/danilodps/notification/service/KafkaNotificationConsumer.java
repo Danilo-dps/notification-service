@@ -2,31 +2,29 @@ package com.danilodps.notification.service;
 
 import com.danilodps.commons.domain.model.response.DepositResponse;
 import com.danilodps.commons.domain.model.response.SignInResponse;
-import com.danilodps.commons.domain.model.response.TransactionResponse;
 import com.danilodps.commons.domain.model.response.SignUpResponse;
-
-import com.danilodps.notification.config.KafkaConfigNotification;
+import com.danilodps.commons.domain.model.response.TransactionResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class KafkaNotificationConsumer {
 
-    private static final String PAYLOAD = "Payload inválido: Comprovante é nulo";
+    private static final String PAYLOAD_MESSAGE = "Payload inválido, objeto não pode ser nulo";
     private final EmailService emailService;
 
-    public KafkaNotificationConsumer(EmailService emailService) { this.emailService = emailService; }
-
     @KafkaListener(
-            topics = KafkaConfigNotification.DEPOSIT_NOTIFICATION_TOPIC,
-            groupId = "notification-deposit-group",
-            containerFactory = "depositResponseConcurrentKafkaListenerContainerFactory"
+            groupId = "consumer-group-v1",
+            topics = {"${spring.kafka.consumer.topic.kafka-deposit}"},
+            containerFactory = "listenerContainerFactory"
     )
     public void handleDepositCreated(DepositResponse depositResponse){
         if(depositResponse == null){
-            log.error(PAYLOAD);
+            log.error(PAYLOAD_MESSAGE);
             return;
         }
         sendEmailNotification(depositResponse.userEmail(), "Depósito realizado com sucesso", String.format("Olá %s, foi depositado o valor de %.2f",
@@ -35,28 +33,28 @@ public class KafkaNotificationConsumer {
     }
 
     @KafkaListener(
-            topics = KafkaConfigNotification.TRANSFER_NOTIFICATION_TOPIC,
-            groupId = "notification-transfer-group",
-            containerFactory = "transferResponseConcurrentKafkaListenerContainerFactory"
+            groupId = "consumer-group-v1",
+            topics = {"${spring.kafka.consumer.topic.kafka-transfer}"},
+            containerFactory = "listenerContainerFactory"
     )
     public void handleTransferCreated(TransactionResponse transactionResponse){
         if(transactionResponse == null){
-            log.error(PAYLOAD);
+            log.error(PAYLOAD_MESSAGE);
             return;
         }
         sendEmailNotification(transactionResponse.receiverEmail(), "Transferência realizada com sucesso", String.format("Olá %s, foi transferido o valor de %.2f",
-                transactionResponse.userSenderName(),
+                transactionResponse.senderEmail(),
                 transactionResponse.amount()));
     }
 
     @KafkaListener(
-            topics = KafkaConfigNotification.SIGN_UP,
-            groupId = "notification-signup-group",
-            containerFactory = "signUpResponseConcurrentKafkaListenerContainerFactory"
+            groupId = "consumer-group-v1",
+            topics = {"${spring.kafka.consumer.topic.kafka-signup}"},
+            containerFactory = "listenerContainerFactory"
     )
-    public void handleSignupCreated(SignUpResponse signupResponse){
+    public void handleSignUpCreated(SignUpResponse signupResponse){
         if(signupResponse == null){
-            log.error(PAYLOAD);
+            log.error(PAYLOAD_MESSAGE);
             return;
         }
         sendEmailNotification(signupResponse.email(), "Cadastro feito com sucesso", String.format("Olá %s, cadastro feito com sucesso para o email %s",
@@ -65,13 +63,13 @@ public class KafkaNotificationConsumer {
     }
 
     @KafkaListener(
-            topics = KafkaConfigNotification.SIGN_IN,
-            groupId = "notification-signin-group",
-            containerFactory = "signInResponseConcurrentKafkaListenerContainerFactory"
+            groupId = "consumer-group-v1",
+            topics = {"${spring.kafka.consumer.topic.kafka-signin}"},
+            containerFactory = "listenerContainerFactory"
     )
-    public void handleSigninCreated(SignInResponse signinResponse){
+    public void handleSignInCreated(SignInResponse signinResponse){
         if(signinResponse == null){
-            log.error(PAYLOAD);
+            log.error(PAYLOAD_MESSAGE);
             return;
         }
         sendEmailNotification(signinResponse.email(), "Login feito com sucesso", String.format("Olá %s, login feito com sucesso para o email %s",
