@@ -1,6 +1,6 @@
 spring:
   application:
-    name: notification
+    name: notification-services
   kafka:
     bootstrap:
       servers: localhost:${KAFKA_PORT}
