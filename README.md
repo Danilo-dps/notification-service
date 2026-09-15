@@ -21,7 +21,7 @@ O serviço está configurado (no `consumer-group-v1`) para escutar e reagir aos 
 
 ## 🛠️ Stack Tecnológica
 
-* **Linguagem & Framework:** Java 21, Spring Boot 3.x
+* **Linguagem & Framework:** Java 21, Spring Boot 4.x
 * **Mensageria:** Spring for Apache Kafka (Consumer)
 * **Notificações:** Spring Boot Starter Mail (JavaMailSender)
 * **Dependência Externa:** Biblioteca `commons` (DTOs compartilhados)
@@ -59,3 +59,8 @@ EMAIL_SECRET=sua_senha_de_app_gerada
 Com o Kafka rodando e as variáveis configuradas, inicie o consumidor:
 
 O serviço iniciará, se conectará ao cluster Kafka local e começará a escutar os tópicos imediatamente. Sempre que a API de pagamentos (Producer) publicar uma mensagem, você verá o log de processamento neste terminal e o e-mail será disparado.
+
+### Comando maven para recuperar os valores da variável de ambiente enquanto builda o código
+```mvn
+export $(xargs < .env) && mvn clean install
+``` 
