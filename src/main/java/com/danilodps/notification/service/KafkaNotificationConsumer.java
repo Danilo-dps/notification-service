@@ -87,4 +87,5 @@ public class KafkaNotificationConsumer {
             log.error("Erro inesperado ao processar o evento '{}': {}", subject, e.getMessage(), e);
         }
     }
+
 }
